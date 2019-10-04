@@ -1,0 +1,37 @@
+>Ten(+) User Stories
+
+1. As a discerning book lover, I want to be able to list my top-ten favorite books and meet people who also list some of these books as their favorite so I can get to know more folks with similar reading taste and interests.
+
+I think this one (#1) is actually the biggest EPIC, and the following ones would be part of it's breakdown.
+
+2. As Nora, I want to my info and list to be able to stay hidden/anonymous until I approve a "matched" list because I am busy, choosy, and want to limit potential for online harassment. 
+
+3. As Nora, I want to add deal-breaker books/authors that prevent me from matching with a user so I can avoid readers who value sexist/racist/homophobic/otherwise harmful writing/writers that is/are still lauded in the literary canon.
+
+4. As a developer, I want users to access the book database from a public library resource (not a private business API) to support public library resources (and have the app reflect that value).
+
+5. As a discerning book lover, I want it to be easy to find and add the correct editions of my favorite books in the app when I start typing the title or author, because I am busy.
+
+6. As a discerning book lover, I want to be able to edit my list if I change my mind or read a new favorite book, so my list most accurately reflects my opinions at the moment.
+
+7. As a discerning book lover, I want to know which other lists/users picked the same #1 book as me, so I can potentially connect with them to discuss our favorite book.
+
+8. As a discerning book lover, I want to be able to get a notification when I have matched with other lists so I am sure to see my matches.
+
+9. As Nora,I want to be able to read about *why* other readers love the books on their list, and to write about my own, so I can be sure we are a good fit before opening up for messaging. This will help me screen for people who are just trying to use this as a dating app with books as bait.
+
+10. As Nora, I want to share my general (not specific) location, and see that of other lists (before DM opens) so that I might be more likely choose matching if the other person lives in my area. It would be nice to meet friends in my local area with similar book interests. 
+
+
+
+>With a person's name, persona:
+
+Nora is a 30-year old Brazilian-American woman in the NW US who studied writing in college and teaches high-school English & lit, while doing freelance writing on the side.
+
+>Break down epics, use persona names to minimize repetition: I've listed them by their number from the first question.
+
+
+
+
+
+
