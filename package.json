@@ -1,0 +1,11 @@
+{
+  "name": "book-friends",
+  "version": "1.0.0",
+  "description": "An app to connect users with others who love their favorite books and authors.",
+  "main": "\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[Dsrc/server.js)",
+  "scripts": {
+    "test": "set NODE_ENV=test&& jasmine"
+  },
+  "author": "jenn",
+  "license": "ISC"
+}
