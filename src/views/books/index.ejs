@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <% include ../static/partials/head.ejs %>
+  </head>
+  <body>
+    <main class="container">
+      <%include ../static/partials/navbar.ejs %>
+
+      <h1>My Favorite Books</h1>
+    </main>
+
+    <form action="/books" method="post">
+      <div class="row">
+        <div class="col">
+          <input type="text" class="form-control" placeholder="Book title" />
+        </div>
+        <div class="col">
+          <input type="text" class="form-control" placeholder="Author" />
+        </div>
+      </div>
+      <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
+
+    <% include ../static/partials/baseScripts.ejs %>
+  </body>
+</html>
