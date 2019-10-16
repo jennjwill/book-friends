@@ -9,5 +9,28 @@ module.exports = {
       .catch(err => {
         callback(err);
       });
+  },
+
+  getBook(id, callback) {
+    return Book.findByPk(id)
+      .then(book => {
+        callback(null, book);
+      })
+      .catch(err => {
+        callback(err);
+      });
+  },
+
+  addBookToList(newBook, callback) {
+    return Book.create({
+      title: newBook.title,
+      author: newBook.author
+    })
+      .then(book => {
+        callback(null, book);
+      })
+      .catch(err => {
+        callback(err);
+      });
   }
 };
