@@ -33,12 +33,15 @@
         <button type="submit" class="btn btn-primary">Submit</button>
       </form>
 
-      <!-- <script
+      <script
         const
         endpoint="https://openlibrary.org/api/books?bibkeys=ISBN:0451526538&callback=mycallback"
       >
+        //use the top100 json list
         const books = [];
-
+        //I won't need to use fetch b/c static file
+        //1)***do it all inside ejs file: drop-down of 100 items
+        //2)search service with button etc as search
         fetch(endpoint)
           .then(blob => blob.json())
           .then(data => books.push(...data));
@@ -71,12 +74,17 @@
           suggestions.innerHTML = html;
         }
 
+        //ejs
         const searchInput = document.querySelector(".search");
         const suggestions = document.querySelector(".suggestions");
 
         searchInput.addEventListener("change", displayMatches);
-        searchInput.addEventListener("keyup", displayMatches); //to get suggestions when the user types
-      </script> -->
+        searchInput.addEventListener("keyup", displayMatches); //to get suggestions when the user types---TOO MUCH FOR API
+
+        //controller passes a callback & route into ejs file
+        //once you have the value pulled up in search, you can easily submit/POST
+        //inside input fields, function inside of that: displayMatches, etc--need a MATCHES ROUTE, which passes keyed values to server
+      </script>
     </main>
 
     <% include ../static/partials/baseScripts.ejs %>
