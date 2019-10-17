@@ -20,7 +20,7 @@ module.exports = {
       title: req.body.title,
       author: req.body.author
     };
-    bookQueries.addBookToList(newBook, (err, book) => {
+    bookQueries.addBook(newBook, (err, book) => {
       console.log("BOOK ID is=", +req.body.id);
 
       if (err) {
@@ -43,11 +43,11 @@ module.exports = {
 
   destroy(req, res, next) {
     bookQueries.deleteBook(req.params.id, (err, book) => {
-      if(err) {
-        res.redirect(500, `books/${book.id}`)
+      if (err) {
+        res.redirect(500, `books/${book.id}`);
       } else {
-        res.redirect(303, "/books")
+        res.redirect(303, "/books");
       }
-    })
+    });
   }
 };

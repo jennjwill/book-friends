@@ -21,7 +21,7 @@ module.exports = {
       });
   },
 
-  addBookToList(newBook, callback) {
+  addBook(newBook, callback) {
     return Book.create({
       title: newBook.title,
       author: newBook.author
