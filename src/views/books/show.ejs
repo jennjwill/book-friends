@@ -8,8 +8,14 @@
 
     <main class="container">
       <h1><%= book.title %></h1>
-
       <p><%= book.author %></p>
+      <form
+        style="display:initial"
+        action="/books/<%= book.id %>/destroy"
+        method="post"
+      >
+        <button type="submit" class="btn btn-danger">Delete</button>
+      </form>
     </main>
 
     <% include ../static/partials/baseScripts.ejs %>

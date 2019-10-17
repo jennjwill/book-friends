@@ -9,7 +9,7 @@ describe("routes : books", () => {
     this.book;
     sequelize.sync({ force: true }).then(res => {
       Book.create({
-        title: "Jade War",
+        title: "Jade War", //changing this book title makes GET /books:id fail
         author: "Fonda Lee"
       })
         .then(book => {
@@ -76,6 +76,24 @@ describe("routes : books", () => {
         expect(err).toBeNull();
         expect(body).toContain("Jade War");
         done();
+      });
+    });
+  });
+
+  describe("POST /books/:id/destroy", () => {
+    it("should delete the book with associated ID", done => {
+      Book.findAll().then(books => {
+        const bookCountBeforeDelete = books.length;
+
+        expect(bookCountBeforeDelete).toBe(1);
+
+        request.post(`${base}${this.book.id}/destroy`, (err, res, body) => {
+          Book.findAll().then(books => {
+            expect(err).toBeNull();
+            expect(books.length).toBe(bookCountBeforeDelete - 1);
+            done();
+          });
+        });
       });
     });
   });

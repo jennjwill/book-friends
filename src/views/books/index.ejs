@@ -9,6 +9,14 @@
 
       <!-- *** NEED CURRENT USER'S BOOK LIST VIEW HERE, b/c form to add to or create list is /books/new *** -->
       <h1>My Favorite Books</h1>
+
+      <ul class="list-group">
+        <% books.forEach(book => { %>
+        <li class="list-group-item">
+          <a href="/books/<%= book.id %>"> <%= book.title %></a>
+        </li>
+        <% }) %>
+      </ul>
     </main>
 
     <% include ../static/partials/baseScripts.ejs %>

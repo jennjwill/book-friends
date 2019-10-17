@@ -21,10 +21,12 @@ module.exports = {
       author: req.body.author
     };
     bookQueries.addBookToList(newBook, (err, book) => {
+      console.log("BOOK ID is=", +req.body.id);
+
       if (err) {
-        res.redirect(500, "books/new");
+        res.redirect(500, "/books/new");
       } else {
-        res.redirect(303, `books/${book.id}`);
+        res.redirect(303, `/books/${book.id}`);
       }
     });
   },
@@ -37,5 +39,15 @@ module.exports = {
         res.render("books/show", { book });
       }
     });
+  },
+
+  destroy(req, res, next) {
+    bookQueries.deleteBook(req.params.id, (err, book) => {
+      if(err) {
+        res.redirect(500, `books/${book.id}`)
+      } else {
+        res.redirect(303, "/books")
+      }
+    })
   }
 };

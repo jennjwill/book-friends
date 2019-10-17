@@ -8,25 +8,25 @@
       <%include ../static/partials/navbar.ejs %>
 
       <h1>My Favorite Books</h1>
-    </main>
 
-    <form action="/books/create" method="post">
-      <div class="row">
-        <div class="col">
-          <input
-            type="text"
-            class="form-control"
-            name="title"
-            aria-describedby="titleHelp"
-            placeholder="Enter Book title"
-          />
+      <form action="/books/create" method="post">
+        <div class="row">
+          <div class="col">
+            <input
+              type="text"
+              class="form-control"
+              name="title"
+              aria-describedby="titleHelp"
+              placeholder="Enter Book title"
+            />
+          </div>
+          <div class="col">
+            <input type="text" class="form-control" placeholder="Author" />
+          </div>
         </div>
-        <div class="col">
-          <input type="text" class="form-control" placeholder="Author" />
-        </div>
-      </div>
-      <button type="submit" class="btn btn-primary">Submit</button>
-    </form>
+        <button type="submit" class="btn btn-primary">Submit</button>
+      </form>
+    </main>
 
     <% include ../static/partials/baseScripts.ejs %>
   </body>
