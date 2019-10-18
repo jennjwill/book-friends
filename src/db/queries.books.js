@@ -44,5 +44,23 @@ module.exports = {
       .catch(err => {
         callback(err);
       });
+  },
+
+  updateBook(id, updatedBook, callback) {
+    return Book.findByPk(id).then(book => {
+      if (!book) {
+        return callback("Book not found");
+      }
+      book
+        .update(updatedBook, {
+          fields: Object.keys(updatedBook)
+        })
+        .then(() => {
+          callback(null, book);
+        })
+        .catch(err => {
+          callback(err);
+        });
+    });
   }
 };

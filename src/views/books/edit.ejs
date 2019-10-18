@@ -1,36 +1,37 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
   <head>
     <% include ../static/partials/head.ejs %>
   </head>
   <body>
+    <% include ../static/partials/navbar.ejs %>
+
     <main class="container">
-      <%include ../static/partials/navbar.ejs %>
+      <h1>Edit Book List</h1>
 
-      <h1>My Favorite Books</h1>
-
-      <form action="/books/create" method="post">
+      <form action="/books/<%= book.id %>/update" method="post">
         <div class="row">
           <div class="col">
             <input
+              value="<%= book.title %>"
               type="text"
               class="form-control"
               name="title"
               aria-describedby="titleHelp"
-              placeholder="Enter Book title"
+              placeholder="Enter Book Title"
             />
           </div>
           <div class="col">
             <input
+              value="<% book.author %>"
               type="text"
               class="form-control"
               name="author"
-              aria-describedby="authorHelp"
-              placeholder="Author"
+              placeholder="Enter Author"
             />
           </div>
         </div>
-        <button type="submit" class="btn btn-primary">Submit</button>
+        <button type="submit" class="btn btn-primary">Update</button>
       </form>
     </main>
 

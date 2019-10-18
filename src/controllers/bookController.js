@@ -49,5 +49,25 @@ module.exports = {
         res.redirect(303, "/books");
       }
     });
+  },
+
+  edit(req, res, next) {
+    bookQueries.getBook(req.params.id, (err, book) => {
+      if (err || book == null) {
+        res.redirect(404, "/");
+      } else {
+        res.render("books/edit", { book });
+      }
+    });
+  },
+
+  update(req, res, next) {
+    bookQueries.updateBook(req.params.id, req.body, (err, book) => {
+      if (err || book == null) {
+        res.redirect(404, `/books/${req.params.id}/edit`);
+      } else {
+        res.redirect(`/books/${book.id}`);
+      }
+    });
   }
 };

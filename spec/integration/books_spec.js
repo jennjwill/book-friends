@@ -97,4 +97,36 @@ describe("routes : books", () => {
       });
     });
   });
+
+  describe("GET /books/:id/edit", () => {
+    it("should render a view with an edit book list form", done => {
+      request.get(`${base}${this.book.id}/edit`, (err, res, body) => {
+        expect(err).toBeNull();
+        expect(body).toContain("Edit Book List");
+        expect(body).toContain("Jade War");
+        done();
+      });
+    });
+  });
+
+  describe("POST /books/:id/update", () => {
+    it("should update the book list with the given values", done => {
+      const options = {
+        url: `${base}${this.book.id}/update`,
+        form: {
+          title: "Empress of Forever",
+          author: "Max Gladstone"
+        }
+      };
+      request.post(options, (err, res, body) => {
+        expect(err).toBeNull();
+        Book.findOne({
+          where: { id: this.book.id }
+        }).then(book => {
+          expect(book.title).toBe("Empress of Forever");
+          done();
+        });
+      });
+    });
+  });
 });
