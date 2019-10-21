@@ -1013,9 +1013,9 @@ const books = [
 //I won't need to use fetch b/c static file
 //1)***do it all inside ejs file: drop-down of 100 items
 //2)search service with button etc as search
-fetch(endpoint)
-  .then(blob => blob.json())
-  .then(data => books.push(...data));
+// fetch(endpoint)
+//   .then(blob => blob.json())
+//   .then(data => books.push(...data));
 
 module.exports = {
   findMatches(wordToMatch, books) {
@@ -1049,11 +1049,11 @@ module.exports = {
 
 //EJS
 //JUST ADD A SEARCH BUTTON TO FORM
-const searchInput = document.querySelector(".search");
-const suggestions = document.querySelector(".suggestions");
+// const searchInput = document.querySelector(".search");
+// const suggestions = document.querySelector(".suggestions");
 
-searchInput.addEventListener("change", displayMatches);
-searchInput.addEventListener("keyup", displayMatches); //to get suggestions when the user types---TOO MUCH FOR API
+// searchInput.addEventListener("change", displayMatches);
+// searchInput.addEventListener("keyup", displayMatches); //to get suggestions when the user types---TOO MUCH FOR API
 
 //controller passes a callback & route into ejs file
 
