@@ -9,6 +9,8 @@ router.get("/books/new", bookController.new);
 
 router.post("/books/create", bookController.create);
 
+// router.get("/books/dashboard", bookController.dashboard);
+
 router.get("/books/:id", bookController.show);
 
 router.post("/books/:id/destroy", bookController.destroy);

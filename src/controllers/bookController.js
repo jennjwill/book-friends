@@ -11,8 +11,15 @@ module.exports = {
     });
   },
 
+  //changed this to be more like index so the whole book list shows, plus edit, delete, and add new book buttons
   new(req, res, next) {
-    res.render("books/new");
+    bookQueries.getAllBooks((err, books) => {
+      if (err) {
+        res.redirect(500, "static/index");
+      } else {
+        res.render("books/new", { books });
+      }
+    });
   },
 
   create(req, res, next) {
@@ -30,6 +37,10 @@ module.exports = {
       }
     });
   },
+
+  // seeDashboard(req, res, next) {
+  //   res.render("books/update");
+  // },
 
   show(req, res, next) {
     bookQueries.getBook(req.params.id, (err, book) => {

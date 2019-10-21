@@ -5,10 +5,28 @@
   </head>
   <body>
     <main class="container">
-      <%include ../static/partials/navbar.ejs %> <% include
-      ../../services/textSearchService.js %>
+      <%include ../static/partials/navbar.ejs %>
+
+      <!-- <% include
+      ../../services/textSearchService.js %> -->
 
       <h1>My Favorite Books</h1>
+
+      <ul class="list-group">
+        <% books.forEach(book => { %>
+        <li class="list-group-item">
+          <a href="/books/<%= book.id %>"> <%= book.title %></a>
+          <a href="/books/<%= book.id %>/edit" class="btn btn-warning">Edit</a>
+          <form
+            style="display:initial"
+            action="/books/<%= book.id %>/destroy"
+            method="post"
+          >
+            <button type="submit" class="btn btn-danger">Delete</button>
+          </form>
+        </li>
+        <% }) %>
+      </ul>
 
       <form action="/books/create" method="post">
         <div class="row">
