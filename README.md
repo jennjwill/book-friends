@@ -8,6 +8,6 @@ Book Friends is an app to help you find and meet people who love YOUR favorite b
 
 Book Friends was built as my personal capstone project for www.bloc.io web development boot-camp using Node.js, HTML5, CSS (Twitter Bootstrap), Express, Sequelize, Postgres, and Jasmine testing.
 
-It is hosted by Heroku at https://jennjwill-book-friends.herokuapp.com/ .
+It is (in progress &) hosted by Heroku at https://jennjwill-book-friends.herokuapp.com/ .
 
 The idea for Book Friends was not mine. I give credit and thanks to 'the library haunter,' aka @SketchesbyBoze and their twitter followers who interacted with the following original tweet: https://twitter.com/SketchesbyBoze/status/1100196264740864005?s=19.
