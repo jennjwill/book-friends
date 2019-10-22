@@ -7,21 +7,19 @@
     <% include ../static/partials/navbar.ejs %>
 
     <main class="container">
-      <div class="bookItems"
-      <h1><%= book.title %></h1>
-      <h3><%= book.author %></h3>
-      <a href="/books/<%= book.id %>/edit" class="btn btn-warning">Edit</a>
-      <form
-        style="display:initial"
-        action="/books/<%= book.id %>/destroy"
-        method="post"
-      >
-        <button type="submit" class="btn btn-danger">Delete</button>
-      </form>
-    </div>
-    
+      <div class="bookItems">
+        <h1><%= book.title %></h1>
+        <h3><%= book.author %></h3>
+        <a href="/books/<%= book.id %>/edit" class="btn btn-warning">Edit</a>
+        <form
+          style="display:initial"
+          action="/books/<%= book.id %>/destroy"
+          method="post"
+        >
+          <button type="submit" class="btn btn-danger">Delete</button>
+        </form>
+      </div>
     </main>
-
 
     <% include ../static/partials/baseScripts.ejs %>
   </body>
