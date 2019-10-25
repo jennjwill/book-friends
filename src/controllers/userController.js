@@ -40,5 +40,11 @@ module.exports = {
         res.redirect("/");
       }
     });
+  },
+
+  signOut(req, res, next) {
+    req.logout();
+    req.flash("notice", "You've successfully signed out!");
+    res.redirect("/");
   }
 };
