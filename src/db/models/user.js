@@ -18,12 +18,19 @@ module.exports = (sequelize, DataTypes) => {
         type: DataTypes.STRING,
         allowNull: false
       }
+      // bookId: {
+      //   type: DataTypes.INTEGER
+      // }
     },
 
     {}
   );
   User.associate = function(models) {
     // associations can be defined here
+    User.hasMany(models.Book, {
+      foreignKey: "userId",
+      as: "books"
+    });
   };
   return User;
 };

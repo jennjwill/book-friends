@@ -11,11 +11,19 @@ module.exports = (sequelize, DataTypes) => {
         type: DataTypes.STRING,
         allowNull: false
       }
+      // userId: {
+      //   type: DataTypes.INTEGER,
+      //   allowNull: false
+      // }
     },
     {}
   );
   Book.associate = function(models) {
     // associations can be defined here
+    Book.hasMany(models.User, {
+      foreignKey: "bookId",
+      as: "users"
+    });
   };
   return Book;
 };
