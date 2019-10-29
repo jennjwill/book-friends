@@ -1,4 +1,5 @@
 const Book = require("./models").Book;
+const Authorizer = require("../policies/application");
 
 module.exports = {
   getAllBooks(callback) {
@@ -34,33 +35,48 @@ module.exports = {
       });
   },
 
-  deleteBook(id, callback) {
-    return Book.destroy({
-      where: { id }
-    })
+  deleteBook(req, callback) {
+    return Book.findByPk(req.params.id)
       .then(book => {
-        callback(null, book);
+        const authorized = new Authorizer(req.user, book).destroy();
+
+        if (authorized) {
+          book.destroy().then(res => {
+            callback(null, book);
+          });
+        } else {
+          req.flash("notice", "You are not authorized to do that.");
+          callback(401);
+        }
       })
       .catch(err => {
         callback(err);
       });
   },
 
-  updateBook(id, updatedBook, callback) {
-    return Book.findByPk(id).then(book => {
+  updateBook(req, updatedBook, callback) {
+    return Book.findByPk(req.params.id).then(book => {
       if (!book) {
         return callback("Book not found");
       }
-      book
-        .update(updatedBook, {
-          fields: Object.keys(updatedBook)
-        })
-        .then(() => {
-          callback(null, book);
-        })
-        .catch(err => {
-          callback(err);
-        });
+
+      const authorized = new Authorizer(req.user, book).update();
+
+      if (authorized) {
+        book
+          .update(updatedBook, {
+            fields: Object.keys(updatedBook)
+          })
+          .then(() => {
+            callback(null, book);
+          })
+          .catch(err => {
+            callback(err);
+          });
+      } else {
+        req.flash("notice", "You are not authorized to do that.");
+        callback("Forbidden");
+      }
     });
   }
 };

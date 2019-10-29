@@ -1,4 +1,5 @@
 const bookQueries = require("../db/queries.books.js");
+const Authorizer = require("../policies/application");
 
 module.exports = {
   index(req, res, next) {
@@ -13,29 +14,45 @@ module.exports = {
 
   //changed this to be more like index so the whole book list shows, plus edit, delete, and add new book buttons
   new(req, res, next) {
-    bookQueries.getAllBooks((err, books) => {
-      if (err) {
-        res.redirect(500, "static/index");
-      } else {
-        res.render("books/new", { books });
-      }
-    });
+    const authorized = new Authorizer(req.user).new();
+    if (authorized) {
+      bookQueries.getAllBooks((err, books) => {
+        if (err) {
+          res.redirect(500, "static/index");
+        } else {
+          res.render("books/new", { books });
+        }
+      });
+    } else {
+      req.flash(
+        "notice",
+        "You can see book lists if you are signed-in to your account."
+      );
+      res.redirect("static/index");
+    }
   },
 
   create(req, res, next) {
-    let newBook = {
-      title: req.body.title,
-      author: req.body.author
-    };
-    bookQueries.addBook(newBook, (err, book) => {
-      console.log("BOOK ID is=", +req.body.id);
+    const authorized = new Authorizer(req.user).create();
 
-      if (err) {
-        res.redirect(500, "/books/new");
-      } else {
-        res.redirect(303, `/books/${book.id}`);
-      }
-    });
+    if (authorized) {
+      let newBook = {
+        title: req.body.title,
+        author: req.body.author
+      };
+      bookQueries.addBook(newBook, (err, book) => {
+        console.log("BOOK ID is=", +req.body.id);
+
+        if (err) {
+          res.redirect(500, "/books/new");
+        } else {
+          res.redirect(303, `/books/${book.id}`);
+        }
+      });
+    } else {
+      req.flash("notice", "Please sign in to add books to your list.");
+      res.redirect("static/index");
+    }
   },
 
   // seeDashboard(req, res, next) {
@@ -53,9 +70,9 @@ module.exports = {
   },
 
   destroy(req, res, next) {
-    bookQueries.deleteBook(req.params.id, (err, book) => {
+    bookQueries.deleteBook(req, (err, book) => {
       if (err) {
-        res.redirect(500, `books/${book.id}`);
+        res.redirect(err, `/books/${req.params.id}`);
       } else {
         res.redirect(303, "/books");
       }
@@ -67,17 +84,23 @@ module.exports = {
       if (err || book == null) {
         res.redirect(404, "/");
       } else {
-        res.render("books/edit", { book });
+        const authorized = new Authorizer(req.user, book).edit();
+        if (authorized) {
+          res.render("books/edit", { book });
+        } else {
+          req.flash("notice", "You are not authorized to do that.");
+          res.redirect(`/books/${req.params.id}`);
+        }
       }
     });
   },
 
   update(req, res, next) {
-    bookQueries.updateBook(req.params.id, req.body, (err, book) => {
+    bookQueries.updateBook(req, req.body, (err, book) => {
       if (err || book == null) {
-        res.redirect(404, `/books/${req.params.id}/edit`);
+        res.redirect(401, `/books/${req.params.id}/edit`);
       } else {
-        res.redirect(`/books/${book.id}`);
+        res.redirect(`/books/${req.params.id}`);
       }
     });
   }
