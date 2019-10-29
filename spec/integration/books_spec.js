@@ -7,19 +7,30 @@ const Book = require("../../src/db/models").Book;
 describe("routes : books", () => {
   beforeEach(done => {
     this.book;
+    this.user;
+
     sequelize.sync({ force: true }).then(res => {
-      Book.create({
-        title: "Jade War", //changing this book title makes GET /books:id fail
-        author: "Fonda Lee"
-      })
-        .then(book => {
-          this.book = book;
-          done();
+      User.create({
+        username: "bowie99",
+        email: "starman@gmail.com",
+        password: 123456
+      }).then(user => {
+        this.user = user;
+
+        Book.create({
+          title: "Jade War", //changing this book title makes GET /books:id fail
+          author: "Fonda Lee",
+          userId: this.user.id
         })
-        .catch(err => {
-          console.log(err);
-          done();
-        });
+          .then(book => {
+            this.book = book;
+            done();
+          })
+          .catch(err => {
+            console.log(err);
+            done();
+          });
+      });
     });
   });
 
