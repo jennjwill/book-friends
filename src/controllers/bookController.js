@@ -1,5 +1,5 @@
 const bookQueries = require("../db/queries.books.js");
-const Authorizer = require("../policies/application");
+const Authorizer = require("../policies/book");
 
 module.exports = {
   index(req, res, next) {

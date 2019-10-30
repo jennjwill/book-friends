@@ -1,5 +1,5 @@
 const Book = require("./models").Book;
-const Authorizer = require("../policies/application");
+const Authorizer = require("../policies/book");
 
 module.exports = {
   getAllBooks(callback) {
