@@ -22,11 +22,11 @@ module.exports = (sequelize, DataTypes) => {
         type: DataTypes.STRING,
         allowNull: false,
         defaultValue: "member"
-      }
+      },
 
-      // bookId: {
-      //   type: DataTypes.INTEGER
-      // }
+      bookId: {
+        type: DataTypes.INTEGER
+      }
     },
 
     {}
@@ -35,6 +35,12 @@ module.exports = (sequelize, DataTypes) => {
     // associations can be defined here
     User.belongsToMany(models.Book, {
       through: "UserBookList",
+      foreignKey: "userId",
+      as: "bookListsByUser" //changed "as" in rel to lines 42
+    });
+
+    //this may break the app
+    User.hasMany(models.Book, {
       foreignKey: "userId",
       as: "books"
     });

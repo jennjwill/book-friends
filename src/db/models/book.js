@@ -10,11 +10,11 @@ module.exports = (sequelize, DataTypes) => {
       author: {
         type: DataTypes.STRING,
         allowNull: false
+      },
+      userId: {
+        type: DataTypes.INTEGER
+        //allowNull: false
       }
-      // userId: {
-      //   type: DataTypes.INTEGER,
-      //   allowNull: false
-      // }
     },
     {}
   );
@@ -23,7 +23,7 @@ module.exports = (sequelize, DataTypes) => {
     Book.belongsToMany(models.User, {
       through: "UserBookList",
       foreignKey: "bookId",
-      as: "users"
+      as: "usersListByBook"
     });
   };
   return Book;
