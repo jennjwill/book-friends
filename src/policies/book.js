@@ -10,14 +10,18 @@ module.exports = class BookPolicy extends ApplicationPolicy {
   }
 
   edit() {
+    console.log("USER is:", this.user);
     return this.new && (this._isOwner() || this._isAdmin());
+    //return this.new && this._isAdmin;
   }
 
   update() {
-    return this.new && (this._isOwner() || this._isAdmin());
+    // return this.new && (this._isOwner() || this._isAdmin());
+    return this.new && this._isAdmin;
   }
 
   destroy() {
-    return this.new && (this._isOwner() || this._isAdmin());
+    // return this.new && (this._isOwner() || this._isAdmin());
+    return this.new && this._isAdmin;
   }
 };

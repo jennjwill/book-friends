@@ -1,10 +1,11 @@
 module.exports = class ApplicationPolicy {
   constructor(user, record) {
     this.user = user;
-    this.record = record;
+    this.record = record; //where does this come from???
   }
 
   _isOwner() {
+    console.log("This record userId IS:", this.record.userId, this.user.id);
     return this.record && this.record.userId == this.user.id;
   }
 

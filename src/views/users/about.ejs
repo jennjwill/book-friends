@@ -7,7 +7,64 @@
     <% include ../static/partials/navbar.ejs %> <% include
     ../static/partials/messages.ejs %>
     <main>
-      <h1>User Profile Page</h1>
+
+      <!-- Eventually add logic to always show to OWNER, show only parts to other members until matched, etc. -->
+
+      
+      
+      <div class="container px-lg-5">
+        <div class="row mx-lg-n5">
+            <div class="col-sm-4 py-3 px-lg-5 ">
+                <h2>UserName</h2>
+                  <p>some cool user info & avatar that will preload</p>
+            </div>
+            <div class="col-sm-8 py-3 px-lg-5">
+                
+
+            <h2>My Book List</h2>
+                        
+            <table class="table table-striped">
+              <thead>
+                <tr>
+                  <th>Book</th>
+                  <th>Author</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>book1</td>
+                  <td>author1</td>
+                </tr>
+                <tr>
+                  <td>book2</td>
+                  <td>author2</td>
+                </tr>
+                <tr>
+                  <td>book3</td>
+                  <td>author3</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+        </div>
+        <!-- <div class="card mb-3">
+          <img
+            src="../BookFriends.jpg"
+            class="card-img-top"
+            alt="stack of colorful books atop a table"
+          />
+          <div class="card">
+            <div class="card-body">
+              <h5 class="card-title">Special title treatment</h5>
+              <p class="card-text">
+                With supporting text below as a natural lead-in to additional
+                content.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div> -->
     </main>
 
     <% include ../static/partials/baseScripts.ejs %>

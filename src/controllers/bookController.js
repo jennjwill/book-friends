@@ -38,11 +38,10 @@ module.exports = {
     if (authorized) {
       let newBook = {
         title: req.body.title,
-        author: req.body.author
+        author: req.body.author,
+        userId: req.user.id
       };
       bookQueries.addBook(newBook, (err, book) => {
-        console.log("BOOK ID is=", +req.body.id);
-
         if (err) {
           res.redirect(500, "/books/new");
         } else {
@@ -59,12 +58,15 @@ module.exports = {
   //   res.render("books/update");
   // },
 
+  //show changes (w "result") may be affecting show to edit flow
   show(req, res, next) {
-    bookQueries.getBook(req.params.id, (err, book) => {
+    bookQueries.getBook(req.params.id, (err, result) => {
+      book = result["book"];
+      let user = result["user"];
       if (err || book == null) {
         res.redirect(404, "/");
       } else {
-        res.render("books/show", { book });
+        res.render("books/show", { book, user });
       }
     });
   },
@@ -84,6 +86,7 @@ module.exports = {
       if (err || book == null) {
         res.redirect(404, "/");
       } else {
+        console.log("Book:", book);
         const authorized = new Authorizer(req.user, book).edit();
         if (authorized) {
           res.render("books/edit", { book });

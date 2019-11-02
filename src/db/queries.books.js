@@ -12,20 +12,32 @@ module.exports = {
       });
   },
 
+  //is this change below affecting show/edit
   getBook(id, callback) {
-    return Book.findByPk(id)
-      .then(book => {
-        callback(null, book);
-      })
-      .catch(err => {
-        callback(err);
-      });
+    let result = {};
+    return Book.findByPk(id).then(book => {
+      if (!book) {
+        callback(404);
+      } else {
+        result["book"] = book;
+        callback(null, result); //??
+      }
+    });
+
+    // return Book.findByPk(id)
+    //   .then(book => {
+    //     callback(null, book);
+    //   })
+    //   .catch(err => {
+    //     callback(err);
+    //   });
   },
 
   addBook(newBook, callback) {
     return Book.create({
       title: newBook.title,
-      author: newBook.author
+      author: newBook.author,
+      userId: newBook.userId
     })
       .then(book => {
         callback(null, book);
@@ -59,7 +71,7 @@ module.exports = {
       if (!book) {
         return callback("Book not found");
       }
-
+      console.log("req user IS:", req.user);
       const authorized = new Authorizer(req.user, book).update();
 
       if (authorized) {
