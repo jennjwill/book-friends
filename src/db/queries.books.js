@@ -71,15 +71,16 @@ module.exports = {
       if (!book) {
         return callback("Book not found");
       }
-      console.log("req user IS:", req.user);
+
       const authorized = new Authorizer(req.user, book).update();
 
       if (authorized) {
+        console.log("thru updateBook, req.user IS:", req.user);
         book
           .update(updatedBook, {
             fields: Object.keys(updatedBook)
           })
-          .then(() => {
+          .then(res => {
             callback(null, book);
           })
           .catch(err => {

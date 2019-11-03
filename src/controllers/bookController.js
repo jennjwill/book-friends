@@ -59,14 +59,33 @@ module.exports = {
   // },
 
   //show changes (w "result") may be affecting show to edit flow
+  // show(req, res, next) {
+  //   bookQueries.getBook(req.params.id, (err, result) => {
+  //     book = result["book"];
+  //     user = result["user"];
+  //     if (err || book == null) {
+  //       res.redirect(404, "/");
+  //     } else {
+  //       res.render("books/show", { book, user });
+  //     }
+  //   });
+  // },
+
+  //try SHOW from wikis in blocipedia
   show(req, res, next) {
     bookQueries.getBook(req.params.id, (err, result) => {
       book = result["book"];
-      let user = result["user"];
+      user = result["user"];
       if (err || book == null) {
         res.redirect(404, "/");
       } else {
-        res.render("books/show", { book, user });
+        const authorized = new Authorizer(req.user, book);
+        if (authorized) {
+          res.render("books/show", { book, user });
+        } else {
+          req.flash("notice", "You are not authorized to do that.");
+          res.redirect(`/books`);
+        }
       }
     });
   },
@@ -81,15 +100,35 @@ module.exports = {
     });
   },
 
+  // edit(req, res, next) {
+  //   bookQueries.getBook(req.params.id, (err, book) => {
+  //     if (err || book == null) {
+  //       res.redirect(404, "/");
+  //     } else {
+  //       console.log("Book:", book);
+  //       const authorized = new Authorizer(req.user, book).edit();
+  //       if (authorized) {
+  //         res.render("books/edit", { book });
+  //       } else {
+  //         req.flash("notice", "You are not authorized to do that.");
+  //         res.redirect(`/books/${req.params.id}`);
+  //       }
+  //     }
+  //   });
+  // },
+
+  //try EDIT from wikis in blocipedia
   edit(req, res, next) {
-    bookQueries.getBook(req.params.id, (err, book) => {
+    bookQueries.getBook(req.params.id, (err, result) => {
+      let book = result["wiki"];
+      let user = result["user"];
       if (err || book == null) {
         res.redirect(404, "/");
       } else {
-        console.log("Book:", book);
         const authorized = new Authorizer(req.user, book).edit();
         if (authorized) {
-          res.render("books/edit", { book });
+          console.log("INSIDE EDIT fxn. Thru Authorizer");
+          res.render("books/edit", { book, user });
         } else {
           req.flash("notice", "You are not authorized to do that.");
           res.redirect(`/books/${req.params.id}`);
@@ -103,8 +142,20 @@ module.exports = {
       if (err || book == null) {
         res.redirect(401, `/books/${req.params.id}/edit`);
       } else {
+        console.log("thru update USER is:", req.user.id);
         res.redirect(`/books/${req.params.id}`);
       }
     });
   }
+
+  //try UPDATE from blocipedia
+  // update(req, res, next) {
+  //   bookQueries.updateBook(req.params.id, req.body, (err, book) => {
+  //     if (err || book == null) {
+  //       res.redirect(404, `/books/${req.params.id}/edit`);
+  //     } else {
+  //       res.redirect(`/books/${book.id}`);
+  //     }
+  //   });
+  // }
 };
