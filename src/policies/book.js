@@ -10,19 +10,19 @@ module.exports = class BookPolicy extends ApplicationPolicy {
   }
 
   edit() {
-    // console.log("EDIT BOOK policy USER is:", this.user);
-    // return this.new && (this._isOwner() || this._isAdmin());
-    return this.new;
+    //console.log("EDIT BOOK policy USER is:", this.user);
+    return this.new && (this._isOwner() || this._isAdmin());
+    //return this.new;
   }
 
   update() {
     // console.log("UPDATE BOOK policy User is:", this.user);
     // return this.new && (this._isOwner() || this._isAdmin());
-    return this.new;
+    return this.edit;
   }
 
   destroy() {
-    // return this.new && (this._isOwner() || this._isAdmin());
-    return this.new;
+    return this.new && (this._isOwner() || this._isAdmin());
+    //return this.update;
   }
 };

@@ -11,11 +11,11 @@
       ../../services/textSearchService.js %> -->
 
       <h1>My Favorite Books</h1>
-
+      <% books.forEach(book => { %> <% if(currentUser && (currentUser.id ==
+      book.userId || currentUser && currentUser.role === "admin")) { %>
       <ul class="list-group">
-        <% books.forEach(book => { %>
         <li class="list-group-item">
-          <a href="/books/<%= book.id %>"> <%= book.title %></a>
+          <h2><%= book.title %> By: <%=book.author %></h2>
           <a href="/books/<%= book.id %>/edit" class="btn btn-warning">Edit</a>
           <form
             style="display:initial"
@@ -25,8 +25,8 @@
             <button type="submit" class="btn btn-danger">Delete</button>
           </form>
         </li>
-        <% }) %>
       </ul>
+      <% } %> <% }) %>
 
       <form action="/books/create" method="post">
         <div class="row">

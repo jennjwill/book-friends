@@ -8,6 +8,8 @@
     ../static/partials/messages.ejs %>
 
     <main class="container">
+      <% if(currentUser && (currentUser.id == book.userId || currentUser &&
+      currentUser.role === "admin")) { %>
       <div class="bookItems">
         <h1><%= book.title %></h1>
         <h3>Author: <%= book.author %></h3>
@@ -21,6 +23,7 @@
           <button type="submit" class="btn btn-danger">Delete</button>
         </form>
       </div>
+      <% } %>
     </main>
 
     <% include ../static/partials/baseScripts.ejs %>

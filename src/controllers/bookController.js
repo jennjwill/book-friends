@@ -95,7 +95,14 @@ module.exports = {
       if (err) {
         res.redirect(err, `/books/${req.params.id}`);
       } else {
-        res.redirect(303, "/books");
+        const authorized = new Authorizer(req.user, book).destroy();
+        if (authorized) {
+          req.flash("notice", "Book has been deleted from list.");
+          res.redirect(303, "/books");
+        } else {
+          req.flash("notice", "You are not authorized to do that.");
+          res.redirect(`/books/${req.params.id}`);
+        }
       }
     });
   },
@@ -120,8 +127,9 @@ module.exports = {
   //try EDIT from wikis in blocipedia
   edit(req, res, next) {
     bookQueries.getBook(req.params.id, (err, result) => {
-      let book = result["wiki"];
+      let book = result["book"];
       let user = result["user"];
+
       if (err || book == null) {
         res.redirect(404, "/");
       } else {

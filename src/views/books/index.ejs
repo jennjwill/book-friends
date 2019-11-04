@@ -12,30 +12,29 @@
       <!-- *** NEED CURRENT USER'S BOOK LIST VIEW HERE, b/c form to add to or create list is /books/new *** -->
       <h1>My Favorite Books</h1>
 
-      <!-- <% if(currentUser) { %> -->
+      <% books.forEach(book => { %> <% if(currentUser && (currentUser.id ==
+      book.userId || currentUser && currentUser.role === "admin")) { %>
+
       <ul class="list-group">
-        <% books.forEach(book => { %>
         <li class="list-group-item">
           <a href="/books/<%= book.id %>">
             <div><%= book.title %></div>
             <div>by: <%= book.author %></div></a
           >
-          <!-- <a href="/books/<%= book.id %>/edit" class="btn btn-warning">Edit</a> -->
-          <!-- <form
+          <a href="/books/<%= book.id %>/edit" class="btn btn-warning">Edit</a>
+          <form
             style="display:initial"
             action="/books/<%= book.id %>/destroy"
             method="post"
           >
             <button type="submit" class="btn btn-danger">Delete</button>
-          </form> -->
+          </form>
         </li>
-        <% }) %>
-        <!-- <% } %> -->
       </ul>
       <div>
-        <% if (currentUser) { %>
+        <% } else if (currentUser) { %>
         <a href="/books/new" class="btn btn-primary">Update My Book List</a>
-        <% } %>
+        <% } %> <% }) %>
       </div>
     </main>
 
