@@ -345,10 +345,11 @@ describe("routes : books", () => {
     });
 
     describe("GET /books/:id", () => {
-      it("should render a view of selected book", done => {
+      it("should NOT render a view of selected book because it was created by another member", done => {
         request.get(`${base}${this.book.id}`, (err, res, body) => {
+          console.log("GET /books/:id BOOK ID is:", this.book.id);
           expect(err).toBeNull();
-          expect(body).toContain("Jade War");
+          expect(body).not.toContain("Jade War");
           done();
         });
       });
@@ -357,7 +358,7 @@ describe("routes : books", () => {
     // ****MEMBERS CAN'T DESTROY/EDIT ANOTHER MEMBER'S BOOKS--HOW TO TEST THIS? Below needs to be changed for that.****
     //this has to be the owner member of the book
     describe("POST /books/:id/destroy", () => {
-      it("should delete the book with associated ID", done => {
+      it("should NOT delete the book with associated ID because it was created by another member", done => {
         Book.findAll().then(books => {
           const bookCountBeforeDelete = books.length;
 
@@ -366,7 +367,7 @@ describe("routes : books", () => {
           request.post(`${base}${this.book.id}/destroy`, (err, res, body) => {
             Book.findAll().then(books => {
               expect(err).toBeNull();
-              expect(books.length).toBe(bookCountBeforeDelete - 1);
+              expect(books.length).toBe(bookCountBeforeDelete);
               done();
             });
           });
@@ -375,11 +376,11 @@ describe("routes : books", () => {
     });
 
     describe("GET /books/:id/edit", () => {
-      it("should render a view with an edit book list form", done => {
+      it("should NOT render a view with an edit book list form because it was created by another member", done => {
         request.get(`${base}${this.book.id}/edit`, (err, res, body) => {
           expect(err).toBeNull();
-          expect(body).toContain("Edit");
-          expect(body).toContain("Jade War");
+          expect(body).not.toContain("Edit");
+          expect(body).not.toContain("Jade War");
           done();
         });
       });
@@ -387,7 +388,7 @@ describe("routes : books", () => {
 
     //this has to be the *owner* member of the book
     describe("POST /books/:id/update", () => {
-      it("should update the book list with the given values", done => {
+      it("should update the book list with the given values, if it gets this far because it would be member's own book", done => {
         request.post(
           {
             url: `${base}${this.book.id}/update`,

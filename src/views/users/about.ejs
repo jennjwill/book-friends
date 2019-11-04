@@ -8,21 +8,26 @@
     ../static/partials/messages.ejs %>
     <main>
 
+      <h2>Welcome to your profile page. </h2>
+      <h5>You are the only one (besides admins) who can see your page, until you connect with folks who have matching books. (For this demo, this page is static and will not show your actual list. Go to 'My Book List' in the navbar for now to see your list.)</h5>
+
       <!-- Eventually add logic to always show to OWNER, show only parts to other members until matched, etc. -->
+
+      <% if(currentUser && (currentUser.id == book.userId || currentUser &&
+      currentUser.role === "admin")) { %>
 
       
       
       <div class="container px-lg-5">
         <div class="row mx-lg-n5">
             <div class="col-sm-4 py-3 px-lg-5 ">
-                <h2>UserName</h2>
+                <h3>Username</h3>
                   <p>some cool user info & avatar that will preload</p>
             </div>
             <div class="col-sm-8 py-3 px-lg-5">
                 
 
             <h2>My Book List</h2>
-                        
             <table class="table table-striped">
               <thead>
                 <tr>
@@ -48,6 +53,11 @@
           </div>
 
         </div>
+
+        <% } %>
+
+        
+
         <!-- <div class="card mb-3">
           <img
             src="../BookFriends.jpg"

@@ -20,7 +20,7 @@ module.exports = {
       } else {
         passport.authenticate("local")(req, res, () => {
           req.flash("notice", "You've successfully signed in!");
-          res.redirect("/");
+          res.redirect("/books");
         });
       }
     });

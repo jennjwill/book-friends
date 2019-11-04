@@ -42,6 +42,8 @@
         </li>
         <li>That's it!</li>
       </ol>
+
+      <% if(!currentUser) { %>
       <a
         class="btn btn-primary btn-lg"
         href="/users/sign_up"
@@ -49,6 +51,7 @@
         style="background-color: hsl(200, 34%, 50%)"
         >Start your list</a
       >
+      <% } %>
     </div>
 
     <% include ./partials/baseScripts.ejs %>

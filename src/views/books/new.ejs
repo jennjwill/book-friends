@@ -10,6 +10,10 @@
       <!-- <% include
       ../../services/textSearchService.js %> -->
 
+      <h3>
+        Welcome to your book list! Please add up to TEN books to your list.
+      </h3>
+
       <h1>My Favorite Books</h1>
       <% books.forEach(book => { %> <% if(currentUser && (currentUser.id ==
       book.userId || currentUser && currentUser.role === "admin")) { %>
