@@ -43,7 +43,7 @@ module.exports = {
       };
       bookQueries.addBook(newBook, (err, book) => {
         if (err) {
-          res.redirect(500, "/books/new");
+          res.redirect(500, "/books/new"); //45-54 would get replaced with a response; res gets *returned* to react, promise is resolved
         } else {
           res.redirect(303, `/books/${book.id}`);
         }
